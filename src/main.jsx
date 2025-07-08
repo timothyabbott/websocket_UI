@@ -1,3 +1,4 @@
+// <script src="http://192.168.1.214:8097"></script>
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
