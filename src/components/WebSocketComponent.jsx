@@ -98,14 +98,13 @@ const TopicSubscription = ({ socket }) => {
 
 const MessageInput = ({ socket }) => {
   const [customMessage, setCustomMessage] = useState('');
-  const [selectedTopic, setSelectedTopic] = useState('');
+  // const [selectedTopic, setSelectedTopic] = useState('');
 
   const sendMessageToTopic = () => {
-    if (socket && selectedTopic && customMessage) {
+    if (socket && customMessage) {
       socket.send(
         JSON.stringify({
           action: 'publish',
-          topic: selectedTopic,
           message: customMessage,
         })
       );
@@ -115,13 +114,6 @@ const MessageInput = ({ socket }) => {
 
   return (
     <VStack spacing={4} w="full">
-      <Input
-        variant="outline"
-        placeholder="Enter topic name"
-        value={selectedTopic}
-        onChange={(e) => setSelectedTopic(e.target.value)}
-        isDisabled={!socket}
-      />
       <HStack spacing={4} w="full">
         <Input
           variant="outline"
@@ -133,7 +125,7 @@ const MessageInput = ({ socket }) => {
         <Button
           onClick={sendMessageToTopic}
           colorScheme="green"
-          isDisabled={!socket || !selectedTopic || !customMessage}
+          isDisabled={!socket || !customMessage}
           w="150px"
         >
           Send Message
@@ -169,7 +161,6 @@ const MessageLog = ({ messages }) => (
 const WebSocketComponent = () => {
   const [socket, setSocket] = useState(null);
   const [messageLog, setMessageLog] = useState([]);
-  const [currentTopic, setCurrentTopic] = useState('');
 
 
   const connect = () => {
